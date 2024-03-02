@@ -15,7 +15,6 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Feeder extends SubsystemBase {
-
   CANSparkMax leftFeederMotor;
   CANSparkMax rightFeederMotor;
 
@@ -25,19 +24,15 @@ public class Feeder extends SubsystemBase {
     rightFeederMotor = new CANSparkMax(Constants.Feeder.rightMotorPort, MotorType.kBrushless);
   }
 
-
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber("FrontFeederSpeed", leftFeederMotor.get());
     SmartDashboard.putNumber("FrontFeederSpeed", rightFeederMotor.get());
-
-
-
-
   } 
-  public void speed(double speed) {
-    rightFeederMotor.set(-speed);
-    leftFeederMotor.set(speed);
+
+  public void spin(double speed, Intake intake) {
+    intake.spin(speed);
+    rightFeederMotor.set(speed);
+    leftFeederMotor.set(-speed);
   }
 }

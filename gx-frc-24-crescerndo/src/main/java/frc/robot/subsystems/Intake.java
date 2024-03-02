@@ -4,41 +4,25 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
+  CANSparkMax motor;
 
-  CANSparkMax intakeMotor;
-  
-
-
-  /** Creates a new Intake. */
   public Intake() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    intakeMotor = new CANSparkMax(Constants.Intake.motorPort, MotorType.kBrushless);
-    
-  
+    motor = new CANSparkMax(Constants.Intake.motorPort, MotorType.kBrushless);
   }
 
- //Intake 1 sparkmax
-//Feeder 2 neo 550
-//Shooter 2
-//Shows speed of motor(s) and sends to smart dashboard.
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("FrontIntakeSpeed", intakeMotor.get());
-   
+    // This method will be called once per scheduler run
   }
 
-  public void speed(double speed) {
-
+  public void spin(double speed) {
+    motor.set(-speed);
   }
-//
 }
