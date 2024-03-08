@@ -8,18 +8,27 @@ import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
   CANSparkMax motor;
+  DigitalInput sensor;
 
   public Intake() {
     motor = new CANSparkMax(Constants.Intake.motorPort, MotorType.kBrushless);
+    sensor = new DigitalInput(Constants.Intake.sensorPort);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("SensorOutput1", sensor.get());
+    
+    if (!sensor.get()) {
+      Lights.setColor(0, 255, 61);
+    }
   }
 
   public void spin(double speed) {

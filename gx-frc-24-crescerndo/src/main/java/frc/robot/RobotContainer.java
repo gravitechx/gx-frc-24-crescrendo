@@ -12,6 +12,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -44,6 +45,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Climber climber = new Climber();
   private final Limelight limelight = new Limelight(feed, intake);
+  private final Lights lights = new Lights();
 
   private final Joystick controller = new Joystick(0);
 
@@ -69,12 +71,12 @@ public class RobotContainer {
   private final JoystickButton bothClimberDownButton = new JoystickButton(controller, Constants.OI.bothClimberDownButton);
 
   private final JoystickButton increaseM1Button = new JoystickButton(controller, 10);
-  //private final JoystickButton decreaseM1Button = new JoystickButton(controller, 9);
+  private final JoystickButton decreaseM1Button = new JoystickButton(controller, 9);
   private final JoystickButton increaseM2Button = new JoystickButton(controller, 12);
   private final JoystickButton decreaseM2Button = new JoystickButton(controller, 11);
   //private final JoystickButton increaseTopSpeed = new JoystickButton(controller, 6);
   //private final JoystickButton decreaseTopSpeed = new JoystickButton(controller, 4);
-  //private final JoystickButton primeShooterButton = new JoystickButton(controller, 5);
+  private final JoystickButton primeShooterButton = new JoystickButton(controller, 5);
   private final POVButton lockDirection = new POVButton(controller, Constants.OI.POVNorth);
   private final POVButton unlockDirection = new POVButton(controller, Constants.OI.POVSouth);
 
@@ -90,12 +92,16 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    NamedCommands.registerCommand("Intake", new InstantCommand(() -> intake.spin(.4)));
+    NamedCommands.registerCommand("Intake", new InstantCommand(() -> intake.spin(.7)));
     NamedCommands.registerCommand("StopIntake", new InstantCommand(() -> intake.spin(0)));
     NamedCommands.registerCommand("Shoot", new InstantCommand(() -> shooter.spinOnly(.7, .7)));
     NamedCommands.registerCommand("StopShoot", new InstantCommand(() -> shooter.spinOnly(0, 0)));
     NamedCommands.registerCommand("Feed", new InstantCommand(() -> feed.spin(.7, intake)));
     NamedCommands.registerCommand("StopFeed", new InstantCommand(() -> feed.spin(0, intake)));
+    NamedCommands.registerCommand("OnlyFeed", new InstantCommand(() -> feed.spinOnly(.7)));
+    NamedCommands.registerCommand("StopOnlyFeed", new InstantCommand(() -> feed.spinOnly(0)));
+    NamedCommands.registerCommand("Prep", new InstantCommand(() -> Constants.primeShooter = true));
+    NamedCommands.registerCommand("StopPrep", new InstantCommand(() -> Constants.primeShooter = false));
 
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
@@ -120,10 +126,10 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-//     intakeButton.onTrue(new InstantCommand(() -> intake.spin(1)));
-//     intakeButton.onFalse(new InstantCommand(() -> intake.spin(0)));
-//     feedButton.onTrue(new InstantCommand(() -> feed.spin(.25, intake)));
-//     feedButton.onFalse(new InstantCommand(() -> feed.spin(0, intake)));
+    intakeButton.onTrue(new InstantCommand(() -> intake.spin(1)));
+    intakeButton.onFalse(new InstantCommand(() -> intake.spin(0)));
+    feedButton.onTrue(new InstantCommand(() -> feed.spin(.3, intake)));
+    feedButton.onFalse(new InstantCommand(() -> feed.spin(0, intake)));
 //     feedButton.onTrue(new InstantCommand(() -> limelight.showLimelight()));
     
 // lockDirection.onTrue(new InstantCommand(() -> Constants.stopSide = 0));
@@ -131,30 +137,32 @@ public class RobotContainer {
 
 
     // shootButton.onTrue(new InstantCommand(() -> shooter.spin((controller.getRawAxis(3) + 1) / 2, (controller.getRawAxis(3) + 1) / 2.5, feed, intake)));
-    //shootButton.onTrue(new InstantCommand(() -> shooter.spinOnly(motor1Speed, motor2Speed)));
-    // shootButton.onFalse(new InstantCommand(() -> shooter.spinOnly(0, 0)));
+    shootButton.onTrue(new InstantCommand(() -> shooter.spinOnly(motor1Speed, motor2Speed)));
+    shootButton.onFalse(new InstantCommand(() -> shooter.spinOnly(0, 0)));
     // shootSlowButton.onTrue(new InstantCommand(() -> shooter.spinOnly(.27 / 2, .27)));
     // shootSlowButton.onFalse(new InstantCommand(() -> shooter.spinOnly(0, 0)));
     // candySetButton.onTrue(new InstantCommand(() -> ))
-    leftClimberUpButton.onTrue(new InstantCommand(() -> climber.spinLeft(0.5)));
-    leftClimberDownButton.onTrue(new InstantCommand(() -> climber.spinLeft(-0.5)));
-    rightClimberUpButton.onTrue(new InstantCommand(() -> climber.spinRight(0.5)));
-    rightClimberDownButton.onTrue(new InstantCommand(() -> climber.spinRight(-0.5)));
-    leftClimberUpButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
-    leftClimberDownButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
-    rightClimberUpButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
-    rightClimberDownButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
+    // leftClimberUpButton.onTrue(new InstantCommand(() -> climber.spinLeft(0.5)));
+    // leftClimberDownButton.onTrue(new InstantCommand(() -> climber.spinLeft(-0.5)));
+    // rightClimberUpButton.onTrue(new InstantCommand(() -> climber.spinRight(0.5)));
+    // rightClimberDownButton.onTrue(new InstantCommand(() -> climber.spinRight(-0.5)));
+    // leftClimberUpButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
+    // leftClimberDownButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
+    // rightClimberUpButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
+    // rightClimberDownButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
 
-    bothClimberUpButton.onTrue(new InstantCommand(() -> climber.spinRight(0.5)));
-    bothClimberUpButton.onTrue(new InstantCommand(() -> climber.spinLeft(0.5)));
-    bothClimberDownButton.onTrue(new InstantCommand(() -> climber.spinRight(-0.5)));
-    bothClimberDownButton.onTrue(new InstantCommand(() -> climber.spinLeft(-0.5)));
-    bothClimberUpButton.onFalse(new InstantCommand(() -> climber.spinRight(0.0)));
-    bothClimberUpButton.onFalse(new InstantCommand(() -> climber.spinLeft(0.0)));
-    bothClimberDownButton.onFalse(new InstantCommand(() -> climber.spinRight(0.0)));
-    bothClimberDownButton.onFalse(new InstantCommand(() -> climber.spinLeft(0.0)));
+    // bothClimberUpButton.onTrue(new InstantCommand(() -> climber.spinRight(0.5)));
+    // bothClimberUpButton.onTrue(new InstantCommand(() -> climber.spinLeft(0.5)));
+    // bothClimberDownButton.onTrue(new InstantCommand(() -> climber.spinRight(-0.5)));
+    // bothClimberDownButton.onTrue(new InstantCommand(() -> climber.spinLeft(-0.5)));
+    // bothClimberUpButton.onFalse(new InstantCommand(() -> climber.spinRight(0.0)));
+    // bothClimberUpButton.onFalse(new InstantCommand(() -> climber.spinLeft(0.0)));
+    // bothClimberDownButton.onFalse(new InstantCommand(() -> climber.spinRight(0.0)));
+    // bothClimberDownButton.onFalse(new InstantCommand(() -> climber.spinLeft(0.0)));
 
-
+    // intakeButton.onTrue(new InstantCommand(() -> Lights.setColor(255, 0, 0)));
+    feedButton.onFalse(new InstantCommand(() -> Lights.setColor(255, 0, 0)));
+    // shootButton.onTrue(new InstantCommand(() -> Lights.setColor(0, 0, 255)));
 
 
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
@@ -164,20 +172,20 @@ public class RobotContainer {
     // quarterSpeed.onFalse(new InstantCommand(() -> modeControl.changeSpeed(1)));
     // changeMode.onTrue(new InstantCommand(() -> modeControl.changeMode()));
 
-    //increaseM1Button.onTrue(new InstantCommand(() -> motor1Speed += .01));
-    // increaseM1Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m1Speed", motor1Speed)));
-    // decreaseM1Button.onTrue(new InstantCommand(() -> motor1Speed -= .01));
-    // decreaseM1Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m1Speed", motor1Speed)));
-    // increaseM2Button.onTrue(new InstantCommand(() -> motor2Speed += .01));
-    // increaseM2Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m2Speed", motor2Speed)));
-    // decreaseM2Button.onTrue(new InstantCommand(() -> motor2Speed -= .01));
-    // decreaseM2Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m2Speed", motor2Speed)));
+    increaseM1Button.onTrue(new InstantCommand(() -> motor1Speed += .01));
+    increaseM1Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m1Speed", motor1Speed)));
+    decreaseM1Button.onTrue(new InstantCommand(() -> motor1Speed -= .01));
+    decreaseM1Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m1Speed", motor1Speed)));
+    increaseM2Button.onTrue(new InstantCommand(() -> motor2Speed += .01));
+    increaseM2Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m2Speed", motor2Speed)));
+    decreaseM2Button.onTrue(new InstantCommand(() -> motor2Speed -= .01));
+    decreaseM2Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m2Speed", motor2Speed)));
 
     // increaseTopSpeed.onTrue(new InstantCommand(() -> Constants.topSpeed+= 0.01));
     // increaseTopSpeed.onTrue(new InstantCommand(() -> SmartDashboard.putNumber("topSpeed", Constants.topSpeed)));
     // decreaseTopSpeed.onTrue(new InstantCommand(() -> Constants.topSpeed+= -0.01));
     // decreaseTopSpeed.onTrue(new InstantCommand(() -> SmartDashboard.putNumber("topSpeed", Constants.topSpeed)));
-    // primeShooterButton.onTrue(new InstantCommand(() -> Constants.primeShooter = (Constants.primeShooter) ? false : true));
+    primeShooterButton.onTrue(new InstantCommand(() -> Constants.primeShooter = (Constants.primeShooter) ? false : true));
 
 
 
@@ -192,7 +200,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return AutoBuilder.buildAuto("Test");
+    return AutoBuilder.buildAuto("Blue4NoteE");
+    // s_Swerve.resetOdometry(PathPlannerPath.fromChoreoTrajectory("NewPath").getPreviewStartingHolonomicPose());
+    // return AutoBuilder.followPath(PathPlannerPath.fromChoreoTrajectory("NewPath"));
   }
 }
 

@@ -60,15 +60,15 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("Limelight4", limelightTable[4]);
     SmartDashboard.putNumber("Limelight5", limelightTable[5]);
 
-    if (Math.abs(limelightTable[0]) != 0) {
+    if (Math.abs(limelightTable[0]) < .6 && Math.abs(limelightTable[0]) != 0) {
       if (Constants.primeShooter) {
         a = true;
-      feeder.spin(.6, intake);
+        feeder.spinOnly(.7);
       }
     } else {
       if (a && Constants.primeShooter) {
         a = false;
-        feeder.spin(0, intake);
+        feeder.spinOnly(0);
       }
     }
   }

@@ -11,6 +11,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import com.ctre.phoenix.music.Orchestra;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.PathPlannerTrajectory;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -68,13 +71,13 @@ public class Swerve extends SubsystemBase {
             this::getChassisSpeeds,
             this::autoDrive,
             new HolonomicPathFollowerConfig(
-                new PIDConstants(1, 0, .1),
-                new PIDConstants(3, 0, 0),
+                new PIDConstants(2, 0, 0),
+                new PIDConstants(5, 0, 0),
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                 Constants.Swerve.swerveRadius,
                 new ReplanningConfig()
             ),
-            () -> false,
+            () -> true,
             this
         );
     }

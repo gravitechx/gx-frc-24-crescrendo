@@ -35,4 +35,9 @@ public class Feeder extends SubsystemBase {
     rightFeederMotor.set(speed);
     leftFeederMotor.set(-speed);
   }
+
+  public void spinOnly(double speed) {
+    rightFeederMotor.set(speed);
+    leftFeederMotor.set(-speed);
+  }
 }
