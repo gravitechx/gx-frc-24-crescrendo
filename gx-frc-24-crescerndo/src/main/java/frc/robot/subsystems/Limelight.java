@@ -27,6 +27,10 @@ public class Limelight extends SubsystemBase {
   Feeder feeder;
   Intake intake;
   boolean a = false;
+  boolean left = false;
+  boolean right = false;
+  boolean middle = false;
+  boolean gone = false;
   
   /** Creates a new Limelight. */
   public Limelight(Feeder feeder, Intake intake) {
@@ -44,14 +48,6 @@ public class Limelight extends SubsystemBase {
   public void periodic() {
     limelightTable = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);  
 
-    // This method will be called once per scheduler run
-
-    //read values periodically
-    // x = tx.getDouble(0.0);
-    // y = ty.getDouble(0.0);
-    // z = tz.getDouble(0.0);
-    // area = ta.getDouble(0.0);
-
     //post to smart dashboard periodically
     SmartDashboard.putNumber("Limelight0", limelightTable[0]);
     SmartDashboard.putNumber("Limelight1", limelightTable[1]);
@@ -60,25 +56,68 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("Limelight4", limelightTable[4]);
     SmartDashboard.putNumber("Limelight5", limelightTable[5]);
 
-    if (Math.abs(limelightTable[0]) < .6 && Math.abs(limelightTable[0]) != 0) {
-      if (Constants.primeShooter) {
-        a = true;
-        feeder.spinOnly(.7);
-      }
+    if (Constants.state == 0) {
+      autoPos();    
     } else {
-      if (a && Constants.primeShooter) {
-        a = false;
-        feeder.spinOnly(0);
+      if (Math.abs(limelightTable[0]) < .7 && Math.abs(limelightTable[0]) != 0) {
+        if (Constants.primeShooter) {
+          a = true;
+          feeder.spin(.7, intake);
+
+          if (Constants.state == 1) {
+            Lights.setColor(0, 255, 0);
+          }
+        }
+      } else {
+        if (a && Constants.primeShooter) {
+          a = false;
+          feeder.spinOnly(0);
+
+          if (Constants.state == 1) {
+            Lights.setColor(0, 0, 255);
+          }
+        }
       }
     }
+
+    // if (limelightTable[0] > -.1 && limelightTable[0] < .2 && Math.abs(limelightTable[0]) != 0) {
+    // if (Math.abs(limelightTable[0]) != 0) {
+    
   }
 
-  public void showLimelight() {
-    
+  public void autoPos() {
+    // if (limelightTable[0] == 0 && !gone) {
+    //   right = false;
+    //   left = false;
+    //   middle = false;
+    //   gone = true;
 
-    SmartDashboard.putNumber("limelightSide", limelightTable[0]);
-    SmartDashboard.putNumber("limelightDistance", limelightTable[2]);
+    //   Lights.setColor(255, 0, 0);
+    // } else {
+    //   if (limelightTable[0] < -.01 && !left) {
+    //     left = true;
+    //     right = false;
+    //     middle = false;
+    //     gone = false;
 
+    //     Lights.setColor(255, 0, 0);
+    //     Lights.setSpecific(2, Constants.Lights.length, 0, 0, 255);
+    //   } else if (limelightTable[0] > .01 && !right) {
+    //     right = true;
+    //     left = false;
+    //     middle = false;
+    //     gone = false;
 
+    //     Lights.setColor(255, 0, 0);
+    //     Lights.setSpecific(0, 24, 0, 0, 255);
+    //   } else if (limelightTable[0] > -.01 && limelightTable[0] < -.01 && !middle) {
+    //     right = false;
+    //     left = false;
+    //     middle = true;
+    //     gone = false;
+
+    //     Lights.setColor(0, 255, 0);
+    //   }
+    // }
   }
 }

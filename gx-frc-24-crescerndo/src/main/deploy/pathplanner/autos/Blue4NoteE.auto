@@ -62,7 +62,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.2
           }
         },
         {
@@ -98,6 +98,12 @@
         {
           "type": "named",
           "data": {
+            "name": "StopPrep"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "StopFeed"
           }
         },
@@ -111,12 +117,6 @@
           "type": "named",
           "data": {
             "name": "StopShoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopPrep"
           }
         }
       ]

@@ -34,4 +34,13 @@ public class Lights extends SubsystemBase {
     lights.setData(buffer);
     lights.start();
   }
+
+  public static void setSpecific(int start, int end, int r, int g, int b) {
+    for (int i = start; i <= end; i++) {
+      buffer.setRGB(i, r, b, g);
+    }
+
+    lights.setData(buffer);
+    lights.start();
+  }
 }

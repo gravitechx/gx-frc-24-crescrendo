@@ -77,7 +77,7 @@ public class Swerve extends SubsystemBase {
                 Constants.Swerve.swerveRadius,
                 new ReplanningConfig()
             ),
-            () -> true,
+            () -> false,
             this
         );
     }

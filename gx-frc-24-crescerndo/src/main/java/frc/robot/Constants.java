@@ -32,22 +32,26 @@ public final class Constants {
   public static double topSpeed = 1;
   public static int stopSide = 1;
   public static boolean primeShooter = false;
+  public static int state = 0; // Disabled 0; Auto 1; Teleop 2;
 
   public static final class OI {
-    public static final int intakeButton = 1;
-    public static final int feedButton = 2;
-    public static final int shootButton = 3;
+    public static final int intakeButton = 3; // 1
+    public static final int feedButton = 2; // 5
+    public static final int shootButton = 1; // 2
     public static final int shootSlowButton = 4;
-    public static final int leftClimberUpButton = 5;
-    public static final int leftClimberDownButton = 6;
-    public static final int rightClimberUpButton = 7;
-    public static final int rightClimberDownButton = 8;
-    public static final int bothClimberUpButton = 3; //Make it an acutal button
-    public static final int bothClimberDownButton = 4; //Make this an actual button
-    public static final int increaseTopSpeed = 6;
+    public static final int leftClimberUpButton = 7;
+    public static final int leftClimberDownButton = 9;
+    public static final int rightClimberUpButton = 8;
+    public static final int rightClimberDownButton = 10;
+    public static final int primeShooterButton = 0; // 3
+    public static final int bothClimberUpButton = 0; //Make it an acutal button
+    public static final int bothClimberDownButton = 0; //Make this an actual button
+    // public static final int increaseTopSpeed = 6;
     //public static final int decreaseTopSpeed = 4;
     public static final int POVNorth = 0;
     public static final int POVSouth = 180;
+    public static final int reverseFeed = 12;
+    public static final int resetGyro = 11;
 
     //public static final int musicStartButton = 7;
     //public static final int musicStopButton = 8;
@@ -55,7 +59,7 @@ public final class Constants {
 
   public static final class Lights {
     public static final int port = 9;
-    public static final int length = 100;
+    public static final int length = 26;
   }
 
   public static final class Shooter {
@@ -196,8 +200,8 @@ public final class Constants {
     }
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
-        public static final double kMaxSpeedMetersPerSecond = 3; // 6.16
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3; // 4.5
+        public static final double kMaxSpeedMetersPerSecond = 6.16; // 6.16
+        public static final double kMaxAccelerationMetersPerSecondSquared = 5; // 4.5
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
