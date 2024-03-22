@@ -43,9 +43,9 @@ public final class Constants {
     public static final int leftClimberDownButton = 9;
     public static final int rightClimberUpButton = 8;
     public static final int rightClimberDownButton = 10;
-    public static final int primeShooterButton = 0; // 3
-    public static final int bothClimberUpButton = 0; //Make it an acutal button
-    public static final int bothClimberDownButton = 0; //Make this an actual button
+    public static final int primeShooterButton = 20; // 3
+    public static final int bothClimberUpButton = 20; //Make it an acutal button
+    public static final int bothClimberDownButton = 20; //Make this an actual button
     // public static final int increaseTopSpeed = 6;
     //public static final int decreaseTopSpeed = 4;
     public static final int POVNorth = 0;
