@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.74,
-      "y": 4.37
+      "x": 1.35,
+      "y": 5.531335051274091
     },
-    "rotation": 120.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -26,13 +26,31 @@
         {
           "type": "named",
           "data": {
-            "name": "OnlyFeed"
+            "name": "Feed"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "StopOnlyFeed"
+            "name": "StopFeed"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Prep"
           }
         },
         {
@@ -42,7 +60,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Trolling D"
+                  "pathName": "D"
                 }
               },
               {
@@ -52,25 +70,25 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 1.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "Intake"
+                        "name": "OnlyFeed"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.9
+                        "waitTime": 0.2
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "StopIntake"
+                        "name": "StopOnlyFeed"
                       }
                     }
                   ]
@@ -82,13 +100,79 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Trolling C"
+            "pathName": "P"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "OnlyFeed"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopOnlyFeed"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "W"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "W (Reverse)"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "OnlyFeed"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopOnlyFeed"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "A"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "OnlyFeed"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
           }
         },
         {
@@ -118,6 +202,6 @@
       ]
     }
   },
-  "folder": "Support Autos",
+  "folder": "5 Note Autos",
   "choreoAuto": false
 }

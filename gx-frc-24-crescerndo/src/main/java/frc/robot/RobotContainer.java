@@ -40,6 +40,7 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  // Instantiating our robot subsystem
   private final Shooter shooter = new Shooter();
   private final Feeder feed = new Feeder();
   private final Intake intake = new Intake();
@@ -52,7 +53,10 @@ public class RobotContainer {
   private final int translationAxis = 1; // 1
   private final int strafeAxis = 0; // 0
   private final int rotationAxis = 2; // 2
-  
+  // Don't change any of the above ^^
+
+
+  // Justin's key binds
   private final JoystickButton zeroGyro = new JoystickButton(controller, Constants.OI.resetGyro);
   private final JoystickButton robotCentric = new JoystickButton(controller, 7);
   // private final JoystickButton halfSpeed = new JoystickButton(controller, 10);
@@ -74,6 +78,8 @@ public class RobotContainer {
   private final JoystickButton decreaseM1Button = new JoystickButton(controller, 9);
   private final JoystickButton increaseM2Button = new JoystickButton(controller, 12);
   private final JoystickButton decreaseM2Button = new JoystickButton(controller, 11);
+  private final JoystickButton shootOverRobotButton= new JoystickButton(controller, 5);
+  //private final JoystickButton decreaseshootOverRobotButton= new JoystickButton(controller, 6);
   //private final JoystickButton increaseTopSpeed = new JoystickButton(controller, 6);
   //private final JoystickButton decreaseTopSpeed = new JoystickButton(controller, 4);
   // private final JoystickButton primeShooterButton = new JoystickButton(controller, Constants.OI.primeShooterButton);
@@ -84,13 +90,20 @@ public class RobotContainer {
   // private final JoystickButton musicStartButton = new JoystickButton(controller, Constants.OI.musicStartButton);
   // private final JoystickButton musicStopButton = new JoystickButton(controller, Constants.OI.musicStopButton);
 
+  // End of justin's key binds
+
+
+  // Swerve stuff
   private final Swerve s_Swerve = new Swerve();
   private final Mode modeControl = Mode.getInstance();
 
   private double motor1Speed = 1;
   private double motor2Speed = 1;
+  // ^^ Shooter motor variables that are changed on the fly
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
+
+  // auto commands
   public RobotContainer() {
     // Configure the trigger bindings
     NamedCommands.registerCommand("Intake", new InstantCommand(() -> intake.spin(.7)));
@@ -108,9 +121,9 @@ public class RobotContainer {
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
         s_Swerve, 
-        () -> -controller.getRawAxis(translationAxis),
-        () -> -controller.getRawAxis(strafeAxis), 
-        () -> -controller.getRawAxis(rotationAxis), 
+        () -> -controller.getRawAxis(Constants.OI.translationAxis),
+        () -> -controller.getRawAxis(Constants.OI.strafeAxis),
+        () -> -controller.getRawAxis(Constants.OI.rotationAxis),
         () -> robotCentric.getAsBoolean()
       )
     );
@@ -132,14 +145,16 @@ public class RobotContainer {
     intakeButton.onFalse(new InstantCommand(() -> intake.spin(0)));
     feedButton.onTrue(new InstantCommand(() -> feed.spin(.3, intake)));
     feedButton.onFalse(new InstantCommand(() -> feed.spin(0, intake)));
-//     feedButton.onTrue(new InstantCommand(() -> limelight.showLimelight()));
+    // feedButton.onTrue(new InstantCommand(() -> limelight.showLimelight()));
     
-// lockDirection.onTrue(new InstantCommand(() -> Constants.stopSide = 0));
-// unlockDirection.onTrue(new InstantCommand(() -> Constants.stopSide = 1));
-
+    // lockDirection.onTrue(new InstantCommand(() -> Constants.stopSide = 0));
+    // unlockDirection.onTrue(new InstantCommand(() -> Constants.stopSide = 1));
 
     // shootButton.onTrue(new InstantCommand(() -> shooter.spin((controller.getRawAxis(3) + 1) / 2, (controller.getRawAxis(3) + 1) / 2.5, feed, intake)));
+
+    // Change with buttons, joystick 9 and 11 are down, 10 and 12 are up. 9-10 and 11-12.
     // shootButton.onTrue(new InstantCommand(() -> shooter.spinOnly(motor1Speed, motor2Speed)));
+
     shootButton.onTrue(new InstantCommand(() -> shooter.spinOnly(1, 1)));
     shootButton.onFalse(new InstantCommand(() -> shooter.spinOnly(.06, .31))); // speed:.06, speed3: 0.31
     shootSlowButton.onTrue(new InstantCommand(() -> shooter.spinOnly(.06, .31)));
@@ -152,7 +167,13 @@ public class RobotContainer {
     leftClimberDownButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
     rightClimberUpButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
     rightClimberDownButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
+    shootOverRobotButton.onTrue(new InstantCommand(() -> shooter.spinOnly(.98, .32)));
+    shootOverRobotButton.onFalse(new InstantCommand(() -> shooter.spinOnly(.06, .31)));
+    // rightClimberUpButton.onTrue(new InstantCommand(() -> intake.spin(1)));
+    // rightClimberUpButton.onTrue(new InstantCommand(() -> feed.spinOnly(.1)));
+    // rightClimberUpButton.onFalse(new InstantCommand(() -> feed.spin(0, intake)));
 
+    // Not usable rn, for both climbers
     // bothClimberUpButton.onTrue(new InstantCommand(() -> climber.spinRight(0.5)));
     // bothClimberUpButton.onTrue(new InstantCommand(() -> climber.spinLeft(0.5)));
     // bothClimberDownButton.onTrue(new InstantCommand(() -> climber.spinRight(-0.5)));
@@ -166,14 +187,16 @@ public class RobotContainer {
     feedButton.onFalse(new InstantCommand(() -> Lights.setColor(255, 0, 0)));
     // shootButton.onTrue(new InstantCommand(() -> Lights.setColor(0, 0, 255)));
 
-
+    // Comment out for testing amp on the fly
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
     // halfSpeed.onTrue(new InstantCommand(() -> modeControl.changeSpeed(.5)));
     // halfSpeed.onFalse(new InstantCommand(() -> modeControl.changeSpeed(1)));
     // quarterSpeed.onTrue(new InstantCommand(() -> modeControl.changeSpeed(.25)));
     // quarterSpeed.onFalse(new InstantCommand(() -> modeControl.changeSpeed(1)));
     // changeMode.onTrue(new InstantCommand(() -> modeControl.changeMode()));
 
+    // Comment in for testing amp on the fly. 
     // increaseM1Button.onTrue(new InstantCommand(() -> motor1Speed += .01));
     // increaseM1Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m1Speed", motor1Speed)));
     // decreaseM1Button.onTrue(new InstantCommand(() -> motor1Speed -= .01));
@@ -182,18 +205,19 @@ public class RobotContainer {
     // increaseM2Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m2Speed", motor2Speed)));
     // decreaseM2Button.onTrue(new InstantCommand(() -> motor2Speed -= .01));
     // decreaseM2Button.onFalse(new InstantCommand(() -> SmartDashboard.putNumber("m2Speed", motor2Speed)));
+
+    // Coment out for testing amp on the fly.
     reverseFeed.onTrue(new InstantCommand(() -> feed.spin(-.5, intake)));
     reverseFeed.onFalse(new InstantCommand(() -> feed.spin(0, intake)));
     reverseFeed.onTrue(new InstantCommand(() -> shooter.spinOnly(-.5, -.5)));
     reverseFeed.onFalse(new InstantCommand(() -> shooter.spinOnly(.06, .31)));
+    // reverseFeed.onTrue(new InstantCommand(() -> Constants.topSpeed = (Constants.topSpeed == 1) ? .7 : 1));
 
     // increaseTopSpeed.onTrue(new InstantCommand(() -> Constants.topSpeed+= 0.01));
     // increaseTopSpeed.onTrue(new InstantCommand(() -> SmartDashboard.putNumber("topSpeed", Constants.topSpeed)));
     // decreaseTopSpeed.onTrue(new InstantCommand(() -> Constants.topSpeed+= -0.01));
     // decreaseTopSpeed.onTrue(new InstantCommand(() -> SmartDashboard.putNumber("topSpeed", Constants.topSpeed)));
     // primeShooterButton.onTrue(new InstantCommand(() -> Constants.primeShooter = (Constants.primeShooter) ? false : true));
-
-
 
     // musicStartButton.onTrue(new InstantCommand(() -> s_Swerve.music.play()));
     // musicStopButton.onTrue(new InstantCommand(() -> s_Swerve.music.stop()));
@@ -206,7 +230,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return AutoBuilder.buildAuto("Trolling");
+    return AutoBuilder.buildAuto("Blue4NoteE");
     // s_Swerve.resetOdometry(PathPlannerPath.fromChoreoTrajectory("NewPath").getPreviewStartingHolonomicPose());
     // return AutoBuilder.followPath(PathPlannerPath.fromChoreoTrajectory("NewPath"));
   }

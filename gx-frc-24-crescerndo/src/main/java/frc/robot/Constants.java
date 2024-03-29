@@ -35,14 +35,20 @@ public final class Constants {
   public static int state = 0; // Disabled 0; Auto 1; Teleop 2;
 
   public static final class OI {
-    public static final int intakeButton = 3; // 1
-    public static final int feedButton = 2; // 5
-    public static final int shootButton = 1; // 2
-    public static final int shootSlowButton = 4;
-    public static final int leftClimberUpButton = 7;
-    public static final int leftClimberDownButton = 9;
-    public static final int rightClimberUpButton = 8;
-    public static final int rightClimberDownButton = 10;
+    public static final String driver = "Justin";
+
+    public static final int translationAxis = (driver == "Justin") ? 1 : 1;
+    public static final int strafeAxis = (driver == "Justin") ? 0 : 0;
+    public static final int rotationAxis = (driver == "Justin") ? 2 : 2;
+
+    public static final int intakeButton = (driver == "Justin") ? 3 : 3; // 1
+    public static final int feedButton = (driver == "Justin") ? 2 : 2; // 5
+    public static final int shootButton = (driver == "Justin") ? 1 : 1; // 2
+    public static final int shootSlowButton = (driver == "Justin") ? 4 : 4;
+    public static final int leftClimberUpButton = (driver == "Justin") ? 7 : 7;
+    public static final int leftClimberDownButton = (driver == "Justin") ? 9 : 9;
+    public static final int rightClimberUpButton = (driver == "Justin") ? 8 : 8;
+    public static final int rightClimberDownButton = (driver == "Justin") ? 10 : 10;
     public static final int primeShooterButton = 20; // 3
     public static final int bothClimberUpButton = 20; //Make it an acutal button
     public static final int bothClimberDownButton = 20; //Make this an actual button
@@ -50,8 +56,8 @@ public final class Constants {
     //public static final int decreaseTopSpeed = 4;
     public static final int POVNorth = 0;
     public static final int POVSouth = 180;
-    public static final int reverseFeed = 12;
-    public static final int resetGyro = 11;
+    public static final int reverseFeed = (driver == "Justin") ? 12 : 12;
+    public static final int resetGyro = (driver == "Justin") ? 11 : 11;
 
     //public static final int musicStartButton = 7;
     //public static final int musicStopButton = 8;
@@ -59,7 +65,7 @@ public final class Constants {
 
   public static final class Lights {
     public static final int port = 9;
-    public static final int length = 26;
+    public static final int length = 120;
   }
 
   public static final class Shooter {
@@ -70,11 +76,13 @@ public final class Constants {
   public static final class Intake {
     public static final int motorPort = 1;//NOT FINAL
     public static final int sensorPort = 0;
+    public static final int sensorPort1 = 3;
   }
 
   public static final class Feeder {
     public static final int leftMotorPort = 4; //NOT FINAL
     public static final int rightMotorPort = 6; //NOT FINAL
+    public static final int sensorPort = 1;
   }
 
   public static final class Climber {

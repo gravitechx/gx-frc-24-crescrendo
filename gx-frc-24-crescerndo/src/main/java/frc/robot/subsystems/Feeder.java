@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,17 +18,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Feeder extends SubsystemBase {
   CANSparkMax leftFeederMotor;
   CANSparkMax rightFeederMotor;
+  DigitalInput sensor;
 
   /** Creates a new Feeder. */
   public Feeder() {
     leftFeederMotor = new CANSparkMax(Constants.Feeder.leftMotorPort, MotorType.kBrushless);
     rightFeederMotor = new CANSparkMax(Constants.Feeder.rightMotorPort, MotorType.kBrushless);
+    sensor = new DigitalInput(Constants.Feeder.sensorPort);
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("FrontFeederSpeed", leftFeederMotor.get());
     SmartDashboard.putNumber("FrontFeederSpeed", rightFeederMotor.get());
+    SmartDashboard.putBoolean("feedSensor", sensor.get());
   } 
 
   public void spin(double speed, Intake intake) {

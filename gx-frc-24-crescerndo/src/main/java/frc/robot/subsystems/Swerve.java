@@ -76,7 +76,7 @@ public class Swerve extends SubsystemBase {
                 new PIDConstants(5, 0, 0),
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
                 Constants.Swerve.swerveRadius,
-                new ReplanningConfig()
+                new ReplanningConfig() // true, true
             ),
             () -> {
                 var alliance = DriverStation.getAlliance();
@@ -97,7 +97,7 @@ public class Swerve extends SubsystemBase {
             Constants.Swerve.swerveKinematics.toSwerveModuleStates(
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
                                     translation.getX() * Mode.getInstance().getSpeed() * Constants.topSpeed * Constants.stopSide, 
-                                    translation.getY() * Mode.getInstance().getSpeed() *Constants.topSpeed, 
+                                    translation.getY() * Mode.getInstance().getSpeed() * Constants.topSpeed, 
                                     rotation * Mode.getInstance().getSpeed() * Constants.topSpeed * Constants.stopSide, 
                                     Rotation2d.fromDegrees(Math.IEEEremainder(getYaw().getDegrees(), 360))
                                 )
