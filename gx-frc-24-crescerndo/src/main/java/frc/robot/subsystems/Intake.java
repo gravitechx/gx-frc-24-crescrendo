@@ -16,20 +16,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
   CANSparkMax motor;
   DigitalInput sensor;
-  AnalogInput sensor1;
+  DigitalInput sensor1;
 
   public Intake() {
     motor = new CANSparkMax(Constants.Intake.motorPort, MotorType.kBrushless);
     sensor = new DigitalInput(Constants.Intake.sensorPort);
-    sensor1 = new AnalogInput(Constants.Intake.sensorPort1);
+    sensor1 = new DigitalInput(Constants.Intake.sensorPort1);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("UltraSonicOutput", sensor1.getValue());
-    SmartDashboard.putBoolean("SensorOutput1", sensor.get());
+    SmartDashboard.putBoolean("SensorOutput", sensor.get());
+    SmartDashboard.putBoolean("Sensor1Output", sensor1.get());
     
-    if (!sensor.get()) {
+    if (!sensor.get() || !sensor1.get()) {
       Lights.setColor(0, 255, 61);
     }
   }

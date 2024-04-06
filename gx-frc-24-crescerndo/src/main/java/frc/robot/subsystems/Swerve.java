@@ -16,6 +16,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.path.PathPlannerTrajectory;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -87,7 +88,15 @@ public class Swerve extends SubsystemBase {
             },
             this
         );
+
+        PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
+            SmartDashboard.putNumber("PathPlanner X", pose.getX());
+            SmartDashboard.putNumber("PathPlanner Y", pose.getY());
+
+        });
+
     }
+
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         SmartDashboard.putNumber("Gyro", getYaw().getDegrees());
@@ -193,6 +202,7 @@ public class Swerve extends SubsystemBase {
 
         SmartDashboard.putNumber("RobotX", swerveOdometry.getPoseMeters().getX());
         SmartDashboard.putNumber("RobotY", swerveOdometry.getPoseMeters().getY());
+
 
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());

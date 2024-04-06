@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "S (Rotate)"
+            "pathName": "S"
           }
         },
         {
@@ -56,7 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "S (Reverse) (Rotate)"
+            "pathName": "S (Reverse)"
           }
         },
         {
@@ -74,13 +74,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "K (Alt Start)"
+            "pathName": "NewT"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "L (Alt End)"
+            "pathName": "NewT (Reverse)"
           }
         },
         {
@@ -116,7 +116,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "V "
+            "pathName": "NewV"
           }
         },
         {

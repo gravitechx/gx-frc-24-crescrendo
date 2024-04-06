@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 //import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 
@@ -33,22 +35,38 @@ public final class Constants {
   public static int stopSide = 1;
   public static boolean primeShooter = false;
   public static int state = 0; // Disabled 0; Auto 1; Teleop 2;
+ 
 
   public static final class OI {
     public static final String driver = "Justin";
 
+    public static final int controllerPort = (driver == "Justin") ? 0 : 2;
+    public static final int buttonPanelPort = 1;
+
+    public static final int testNormalButton = 1;
+    public static final int testReverseButton = 2;
+    public static final int rightClimberUpButtonPanel = 5;
+    public static final int rightClimberDownButtonPanel = 6;
+    public static final int leftClimberUpButtonPanel = 3;
+    public static final int leftClimberDownButtonPanel = 4;
+
     public static final int translationAxis = (driver == "Justin") ? 1 : 1;
     public static final int strafeAxis = (driver == "Justin") ? 0 : 0;
-    public static final int rotationAxis = (driver == "Justin") ? 2 : 2;
+    public static final int rotationAxis = (driver == "Justin") ? 2 : 4;
 
-    public static final int intakeButton = (driver == "Justin") ? 3 : 3; // 1
-    public static final int feedButton = (driver == "Justin") ? 2 : 2; // 5
+    public static final int longShotButton = (driver == "Justin") ? 30 : 2;
+    public static final boolean dummy = true;
+   
+    public static final int shotButton = (driver == "Justin") ? 30 : 3;
+
+    public static final int intakeButton = (driver == "Justin") ? 3 : 6; // 1
+    public static final int feedButton = (driver == "Justin") ? 2 : 5; // 5
     public static final int shootButton = (driver == "Justin") ? 1 : 1; // 2
     public static final int shootSlowButton = (driver == "Justin") ? 4 : 4;
-    public static final int leftClimberUpButton = (driver == "Justin") ? 7 : 7;
-    public static final int leftClimberDownButton = (driver == "Justin") ? 9 : 9;
-    public static final int rightClimberUpButton = (driver == "Justin") ? 8 : 8;
-    public static final int rightClimberDownButton = (driver == "Justin") ? 10 : 10;
+    public static final int leftClimberUpButton = (driver == "Justin") ? 7 : 3;
+    public static final int leftClimberDownButton = (driver == "Justin") ? 9 : 4;
+    public static final int rightClimberUpButton = (driver == "Justin") ? 8 : 1;
+    public static final int rightClimberDownButton = (driver == "Justin") ? 10 : 2;
     public static final int primeShooterButton = 20; // 3
     public static final int bothClimberUpButton = 20; //Make it an acutal button
     public static final int bothClimberDownButton = 20; //Make this an actual button
@@ -56,6 +74,8 @@ public final class Constants {
     //public static final int decreaseTopSpeed = 4;
     public static final int POVNorth = 0;
     public static final int POVSouth = 180;
+    public static final int POVEast = 90;
+    public static final int POVWest = 270;
     public static final int reverseFeed = (driver == "Justin") ? 12 : 12;
     public static final int resetGyro = (driver == "Justin") ? 11 : 11;
 
@@ -76,7 +96,7 @@ public final class Constants {
   public static final class Intake {
     public static final int motorPort = 1;//NOT FINAL
     public static final int sensorPort = 0;
-    public static final int sensorPort1 = 3;
+    public static final int sensorPort1 = 1;
   }
 
   public static final class Feeder {
