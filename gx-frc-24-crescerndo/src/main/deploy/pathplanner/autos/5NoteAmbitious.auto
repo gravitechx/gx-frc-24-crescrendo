@@ -202,12 +202,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Q"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "StopFeed"
@@ -229,6 +223,12 @@
           "type": "named",
           "data": {
             "name": "FlipGyro"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Q"
           }
         }
       ]
