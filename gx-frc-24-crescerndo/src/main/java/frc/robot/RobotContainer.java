@@ -69,23 +69,23 @@ public class RobotContainer {
  
   private final JoystickButton zeroGyro = new JoystickButton(controller, Constants.OI.resetGyro);
  
-  private final JoystickButton intakeButton = new JoystickButton(controller, Constants.OI.intakeButton);
-  private final JoystickButton feedButton = new JoystickButton(controller, Constants.OI.feedButton);
+//   private final JoystickButton intakeButton = new JoystickButton(controller, Constants.OI.intakeButton);
+//   private final JoystickButton feedButton = new JoystickButton(controller, Constants.OI.feedButton);
  private final JoystickButton shootButton = new JoystickButton(controller, Constants.OI.shootButton);
- private final JoystickButton shootSlowButton = new JoystickButton(controller, Constants.OI.shootSlowButton);
-  private final JoystickButton rightClimberUpButton = new JoystickButton(controller, Constants.OI.leftClimberUpButton);
-  private final JoystickButton rightClimberDownButton = new JoystickButton(controller, Constants.OI.leftClimberDownButton);
-  private final JoystickButton leftClimberUpButton = new JoystickButton(controller, Constants.OI.rightClimberUpButton);
-  private final JoystickButton leftClimberDownButton = new JoystickButton(controller, Constants.OI.rightClimberDownButton);
+//  private final JoystickButton shootSlowButton = new JoystickButton(controller, Constants.OI.shootSlowButton);
+//   private final JoystickButton rightClimberUpButton = new JoystickButton(controller, Constants.OI.leftClimberUpButton);
+//   private final JoystickButton rightClimberDownButton = new JoystickButton(controller, Constants.OI.leftClimberDownButton);
+//   private final JoystickButton leftClimberUpButton = new JoystickButton(controller, Constants.OI.rightClimberUpButton);
+//   private final JoystickButton leftClimberDownButton = new JoystickButton(controller, Constants.OI.rightClimberDownButton);
  
 
   private  final  JoystickButton increaseM1Button = new JoystickButton(buttons, 7);
   private final JoystickButton decreaseM1Button = new JoystickButton(buttons, 8);
   private final JoystickButton increaseM2Button = new JoystickButton(buttons, 9);
   private final JoystickButton decreaseM2Button = new JoystickButton(buttons, 10);
-  private final JoystickButton shootOverRobotButton= new JoystickButton(controller, 5);
+  // private final JoystickButton shootOverRobotButton= new JoystickButton(controller, 5);
   
-  private final JoystickButton reverseFeedButton = new JoystickButton(controller, Constants.OI.reverseFeed);
+  // private final JoystickButton reverseFeedButton = new JoystickButton(controller, Constants.OI.reverseFeed);
   
   
   private final Trigger trigger = new Trigger(() -> controller.getRawAxis(3) == 1);
@@ -113,20 +113,20 @@ public class RobotContainer {
   //Ronan's key binds
   
 
-//   private final POVButton zeroGyro = new POVButton(controller, Constants.OI.POVNorth);
-//   private final POVButton reverseFeedButton = new POVButton(controller, Constants.OI.POVSouth);
-//  private final JoystickButton intakeButton = new JoystickButton(controller, Constants.OI.intakeButton);
-//   private final JoystickButton feedButton = new JoystickButton(controller, Constants.OI.feedButton);
-//   private final JoystickButton rightClimberUpButton = new JoystickButton(controller, Constants.OI.leftClimberUpButton);
-//   private final JoystickButton rightClimberDownButton = new JoystickButton(controller, Constants.OI.leftClimberDownButton);
-//   private final JoystickButton leftClimberUpButton = new JoystickButton(controller, Constants.OI.rightClimberUpButton);
-//   private final JoystickButton leftClimberDownButton = new JoystickButton(controller, Constants.OI.rightClimberDownButton);
-//   private final Boolean dumbDumb = Constants.OI.dummy;
-//    private final Trigger longShootButton = new Trigger(() -> controller.getRawAxis(2) >= 0.25);
-//   private final Trigger shootButton = new Trigger(() -> controller.getRawAxis(3) >= 0.25);
+  // private final POVButton zeroGyro = new POVButton(controller, Constants.OI.POVNorth);
+  private final POVButton reverseFeedButton = new POVButton(controller, Constants.OI.POVSouth);
+ private final JoystickButton intakeButton = new JoystickButton(controller, Constants.OI.intakeButton);
+  private final JoystickButton feedButton = new JoystickButton(controller, Constants.OI.feedButton);
+  private final JoystickButton rightClimberUpButton = new JoystickButton(controller, Constants.OI.leftClimberUpButton);
+  private final JoystickButton rightClimberDownButton = new JoystickButton(controller, Constants.OI.leftClimberDownButton);
+  private final JoystickButton leftClimberUpButton = new JoystickButton(controller, Constants.OI.rightClimberUpButton);
+  private final JoystickButton leftClimberDownButton = new JoystickButton(controller, Constants.OI.rightClimberDownButton);
+  //private final Boolean dumbDumb = Constants.OI.dummy;
+  //  private final Trigger shootOverRobotButton = new Trigger(() -> controller.getRawAxis(2) >= 0.25);
+  // private final Trigger shootButton = new Trigger(() -> controller.getRawAxis(3) >= 0.25);
 
-//  private final Trigger shootButton = new Trigger(getTriggerPressed());
-// private final Trigger shootOverRobotButton = new Trigger(getTriggerPressed());
+ //private final Trigger shootButton = new Trigger(getTriggerPressed());
+//private final Trigger shootOverRobotButton = new Trigger(getTriggerPressed());
 
 
 
@@ -199,8 +199,8 @@ public class RobotContainer {
 // shootButton.onTrue(new InstantCommand(() -> shooter.spinOnly(1, 1)));
  shootButton.onFalse(new InstantCommand(() -> shooter.spinOnly(.08, .35))); // speed:.06, speed3: 0.31
 
- shootOverRobotButton.onTrue(new InstantCommand(() ->shooter.spinOnly(.98,.32)));
-shootOverRobotButton.onFalse(new InstantCommand(() ->shooter.spinOnly(0.06,0.31)));
+//  shootOverRobotButton.onTrue(new InstantCommand(() ->shooter.spinOnly(.98,.32)));
+// shootOverRobotButton.onFalse(new InstantCommand(() ->shooter.spinOnly(0.06,0.31)));
 
 
 reverseFeedButton.onTrue(new InstantCommand(() -> feed.spin(-.5, intake)));
@@ -226,14 +226,14 @@ reverseFeedButton.onTrue(new InstantCommand(() -> feed.spin(-.5, intake)));
    // stopShootButton.onTrue(new InstantCommand(() -> shooter.spinOnly(0, 0)));
    
    
-    // leftClimberUpButton.onTrue(new InstantCommand(() -> climber.spinLeft(1)));
-    // leftClimberDownButton.onTrue(new InstantCommand(() -> climber.spinLeft(-1)));
-    // rightClimberUpButton.onTrue(new InstantCommand(() -> climber.spinRight(1)));
-    // rightClimberDownButton.onTrue(new InstantCommand(() -> climber.spinRight(-1)));
-    // leftClimberUpButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
-    // leftClimberDownButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
-    // rightClimberUpButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
-    // rightClimberDownButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
+    leftClimberUpButton.onTrue(new InstantCommand(() -> climber.spinLeft(1)));
+    leftClimberDownButton.onTrue(new InstantCommand(() -> climber.spinLeft(-1)));
+    rightClimberUpButton.onTrue(new InstantCommand(() -> climber.spinRight(1)));
+    rightClimberDownButton.onTrue(new InstantCommand(() -> climber.spinRight(-1)));
+    leftClimberUpButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
+    leftClimberDownButton.onFalse(new InstantCommand(() -> climber.spinLeft(0)));
+    rightClimberUpButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
+    rightClimberDownButton.onFalse(new InstantCommand(() -> climber.spinRight(0)));
     
     // rightClimberUpButton.onTrue(new InstantCommand(() -> intake.spin(1)));
     // rightClimberUpButton.onTrue(new InstantCommand(() -> feed.spinOnly(.1)));
@@ -315,7 +315,7 @@ reverseFeedButton.onTrue(new InstantCommand(() -> feed.spin(-.5, intake)));
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return AutoBuilder.buildAuto("NewSupport");
+    return AutoBuilder.buildAuto("Blue4NoteE");
     // s_Swerve.resetOdometry(PathPlannerPath.fromChoreoTrajectory("NewPath").getPreviewStartingHolonomicPose());
     // return AutoBuilder.followPath(PathPlannerPath.fromChoreoTrajectory("NewPath"));
   }

@@ -29,7 +29,7 @@ import frc.lib.util.SwerveModuleConstants;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final double stickDeadband = 0.05;
+  public static final double stickDeadband = 0.1;
   public static final double kTrueMaxSpeed = .25;
   public static double topSpeed = 1;
   public static int stopSide = 1;
@@ -40,7 +40,7 @@ public final class Constants {
   public static final class OI {
     public static final String driver = "Justin";
 
-    public static final int controllerPort = (driver == "Justin") ? 0 : 2;
+    public static final int controllerPort = (driver == "Justin") ? 0 : 0;
     public static final int buttonPanelPort = 1;
 
     public static final int testNormalButton = 1;
@@ -59,12 +59,12 @@ public final class Constants {
    
     public static final int shotButton = (driver == "Justin") ? 30 : 3;
 
-    public static final int intakeButton = (driver == "Justin") ? 3 : 6; // 1
+    public static final int intakeButton = (driver == "Justin") ? 4 : 6; // 1
     public static final int feedButton = (driver == "Justin") ? 2 : 5; // 5
-    public static final int shootButton = (driver == "Justin") ? 1 : 1; // 2
-    public static final int shootSlowButton = (driver == "Justin") ? 4 : 4;
-    public static final int leftClimberUpButton = (driver == "Justin") ? 7 : 3;
-    public static final int leftClimberDownButton = (driver == "Justin") ? 9 : 4;
+    public static final int shootButton = (driver == "Justin") ? 1 : 30; // 2
+    public static final int shootSlowButton = (driver == "Justin") ? 30 : 30;
+    public static final int leftClimberUpButton = (driver == "Justin") ? 7 : 4;
+    public static final int leftClimberDownButton = (driver == "Justin") ? 9 : 3;
     public static final int rightClimberUpButton = (driver == "Justin") ? 8 : 1;
     public static final int rightClimberDownButton = (driver == "Justin") ? 10 : 2;
     public static final int primeShooterButton = 20; // 3
@@ -77,7 +77,7 @@ public final class Constants {
     public static final int POVEast = 90;
     public static final int POVWest = 270;
     public static final int reverseFeed = (driver == "Justin") ? 12 : 12;
-    public static final int resetGyro = (driver == "Justin") ? 11 : 11;
+    public static final int resetGyro = (driver == "Justin") ? 8 : 11;
 
     //public static final int musicStartButton = 7;
     //public static final int musicStopButton = 8;
@@ -96,7 +96,7 @@ public final class Constants {
   public static final class Intake {
     public static final int motorPort = 1;//NOT FINAL
     public static final int sensorPort = 0;
-    public static final int sensorPort1 = 1;
+    public static final int sensorPort1 = 2;
   }
 
   public static final class Feeder {
