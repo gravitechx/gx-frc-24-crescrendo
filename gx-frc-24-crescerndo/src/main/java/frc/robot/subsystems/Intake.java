@@ -26,8 +26,18 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // Maybe spin feeder motors really slowly until they slow down too, even maybe until the intake stops slowing down so it doesn't have the note?
+
     SmartDashboard.putBoolean("SensorOutput", sensor.get());
     SmartDashboard.putBoolean("Sensor1Output", sensor1.get());
+
+    SmartDashboard.putNumber("IntakeAppliedOutput", motor.getAppliedOutput());
+    SmartDashboard.putNumber("IntakeBusVoltage", motor.getBusVoltage());
+    SmartDashboard.putNumber("IntakeOutputCurrent", motor.getOutputCurrent());
+
+    // if (motor.getOutputCurrent() > 11) {
+    //   Lights.setColor(0, 255, 0);
+    // }
     
     if (!sensor.get() || !sensor1.get()) {
       Lights.setColor(0, 255, 61);
